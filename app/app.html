@@ -1,0 +1,37 @@
+<div id="wrapper">
+    <!-- Navigation -->
+    <nav id='navbar' class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    </nav>
+    <!-- /.Navigation -->
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div id='alertMsg' class="row hidden">
+                <div class="col-lg-12">
+                    <div class="alert alert-info alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <div>
+                            <i class="fa fa-info-circle"></i>  
+                            <strong>Welcome</strong> To the home of wonderfull
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id='mainBody' class="container-fluid">
+            <div class='ajaxloading text-center'>
+                <br><br>
+                <div class='fa fa-spinner fa-spin fa-5x'></div>
+                <br><br>
+                Loading Application ...
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+    <!-- /#page-wrapper -->
+</div>
+<script>
+$("#navbar").load("./app/comps/navbar.html");
+$("#mainBody").css("height",($(window).height()-$("#navbar").height()-10)+"px");
+// $("#mainBody").css("min-height",($(window).height()-$("#navbar").height()-10)+"px");
+//appUI.navigatePage(APPCONFIG.HOME,$("#sidebarMenu a[href='"+APPCONFIG.HOME+"']"));
+</script>

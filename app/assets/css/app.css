@@ -1,0 +1,78 @@
+@import url("tree.css");
+
+body {
+    margin-top: 32px;
+}
+#mainBody {
+    overflow: auto;
+}
+#page-wrapper {
+	padding: 0px;
+}
+.container-fluid {
+	padding: 0px;
+}
+
+.tab_padded {
+	padding-right: 15px;
+    padding-left: 15px;
+}
+
+#navbar {
+    height: 30px;
+    min-height: 32px;
+    margin-bottom: 20px;
+}
+
+.top-nav>li>a {
+    padding-top: 7px;
+    padding-bottom: 7px;
+    line-height: 13px;
+    color: #999;
+}
+
+.top-nav>li.active>a {
+    color: #333;
+    background: white;
+}
+.top-nav>li.active>a .fa {
+	color: #333;
+}
+
+.top-nav .fa {
+    font-size: 18px;
+}
+
+.side-nav {
+    top: 32px;
+}
+
+.fixed-bottom {
+	position: fixed;
+
+}
+
+#navbar .fixed-bottom {
+    position: fixed;
+    bottom: 0px;
+    border-top: 1px solid #333;
+    opacity: 0.8;
+    background: #333;
+}
+
+.page_tabs {
+	display: none;
+    height: 100%;
+}
+.page_tabs.active {
+	display: block;
+}
+
+.closeSettingsTab {
+    border: 1px solid #333;
+    border-radius: 100px;
+    padding-left: 3px;
+    padding-right: 3px;
+    margin-top: 9px;
+    cursor: pointer;
+}

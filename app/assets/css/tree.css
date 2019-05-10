@@ -1,0 +1,56 @@
+ul.tree {
+  margin: 0;
+  padding: 0px;
+  padding-left: 5px;
+}
+ul.tree li {
+  list-style: none;
+  /*margin-left: -15px;*/
+  position: relative;
+}
+ul.tree ul {
+    padding: 0px;
+    padding-left: 13px;
+    display: none;
+}
+ul.tree ul.open {
+    display: block;
+}
+ul.tree a {
+	cursor: pointer;
+	color: #333;
+	text-decoration: none;
+	/*display: block;*/
+}
+ul.tree label {
+	font-weight: normal;
+    margin-bottom: 2px;
+}
+
+ul.tree .active {
+	background: #DEDEDE;
+    border: 1px dotted #ADADAD;
+    /*padding: 2px;*/
+}
+
+ul.tree li>label {
+	cursor: pointer;
+}
+ul.tree a>label {
+	cursor: pointer;
+}
+ul.tree label>a {
+	display: inline-block;
+}
+ul.tree label:before {
+    content: "\f07b";
+	display: block; 
+    float: left; 
+    font-family: Fontawesome;
+    font-size: 15px;
+    margin-right: 5px;
+    font-weight: 100;
+}
+ul.tree a>label:before {
+	content: "\f15b";	
+}

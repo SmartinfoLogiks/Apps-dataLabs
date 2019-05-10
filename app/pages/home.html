@@ -1,0 +1,26 @@
+<div class='mainBody'>
+</div>
+<script>
+function loadHomeNoteLists() {
+	$("#recentNoteList").html("");
+	$("#localNoteList").html("");
+	$.each(NOTEBOOKS.recent, function(a,b) {
+		$("#recentNoteList").prepend("<a href='#' class='list-group-item actionCMD' data-cmd='openDocumentTab' data-noteid='"+b.noteid+"'>"+b.title+"</a>");
+	});
+	
+	$.each(NOTEBOOKS.local, function(a,b) {
+		$("#localNoteList").append("<a href='#' class='list-group-item actionCMD' data-cmd='openDocumentTab' data-noteid='"+b.noteid+"'>"+b.title+"</a>");
+	});
+
+	if($("#recentNoteList").children().length<=0) {
+		$("#recentNoteList").html("<h5 class='text-center'>No notes found for you</h5>");
+	}
+	if($("#localNoteList").children().length<=0) {
+		$("#localNoteList").html("<h5 class='text-center'>No notes found for you</h5>");
+	}
+}
+$("#tab_settings").load("./app/pages/settings.html");
+loadHomeNoteLists();
+// $("#homePage1").load("./app/comps/dash-cards.html");
+// $("#homePage2").load("./app/comps/dash-table.html");
+</script>

@@ -1,0 +1,81 @@
+{
+  "name": "com.silk.vizuals",
+  "version": "1.0.0",
+  "description": "Vizuals",
+  "homepage": "http://smartinfologiks.com/",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron . --enable-logging",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pack": "electron-builder --dir",
+    "dist:linux": "build --x64 --ia32 --linux deb",
+    "dist:win64": "build --x64  --win",
+    "dist:win32": "build --ia32  --win",
+    "dist:mac": "build --x64 --ia32 --mac",
+    "dist:all": "build -mwl --x64 --ia32",
+    "dist": "npm run dist:mac && npm run dist:linux && npm run dist:win"
+  },
+  "author": {
+    "name": "SmartinfoLogiks",
+    "email": "admin@smartinfologiks.com"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "electron-localshortcut": "^2.0.2",
+    "electron-prompt": "^1.3.0",
+    "electron-save-file": "^1.0.2",
+    "font-awesome": "^4.6.3",
+    "fs-extra": "^4.0.2",
+    "handlebars": "^4.0.8",
+    "jquery": "^2.2.4",
+    "jquery-ui": "^1.12.1",
+    "jquery.easing": "^1.4.1",
+    "md5": "^2.2.1",
+    "moment": "^2.22.2",
+    "node-localstorage": "*",
+    "require-reload": "*",
+    "shortid": "^2.2.14",
+    "simplemde": "^1.11.2",
+    "socket.io": "^1.0.3",
+    "winston": "^2.3.1"
+  },
+  "devDependencies": {
+    "electron": "1.6.2",
+    "electron-builder": "^10.17.3",
+    "electron-packager": "^9.1.0"
+  },
+  "packageIgnore": [
+    "LICENSE.md",
+    "README.md",
+    ".DS_Store",
+    ".travis.yml",
+    "appveyor.yml",
+    "test",
+    "dist",
+    "build/Screenshot.png"
+  ],
+  "build": {
+    "appId": "com.silk.vizuals",
+    "productName": "Vizuals",
+    "artifactName": "com.silk.vizuals",
+    "asar": true,
+    "compression": "normal",
+    "copyright": "Copyright @ 2017 SmartinfoLogiks",
+    "mac": {
+      "category": "public.app-category.productivity",
+      "icon": "build/icon.icns"
+    },
+    "win": {
+      "icon": "build/icon.ico",
+      "target": "nsis"
+    },
+    "linux": {
+      "category": "Graphics",
+      "icon": "build/icons"
+    },
+    "nsis": {
+      "oneClick": false
+    }
+  }
+}

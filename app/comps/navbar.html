@@ -1,0 +1,33 @@
+    <!-- Top Menu Items -->
+    <ul id='noteTabBar' class="nav navbar-left top-nav">
+        <li class='active'><a href="#tab_home"><i class="fa fa-home"></i> Home</a></li>
+        <!-- <li><a href="#"><i class="fa fa-file"></i> Test1</a></li>
+        <li><a href="#"><i class="fa fa-file"></i> Test 2</a></li> -->
+    </ul>
+    
+    <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul id='sidebar' class="nav navbar-nav side-nav">
+            
+            <li class='actionCMD' data-cmd='newDocument'>
+                <a href="#"><i class="fa fa-fw fa-plus"></i> Create New</a>
+            </li>
+            <li>
+                <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-folder"></i> Recent Notes <i class="fa fa-fw fa-caret-down"></i></a>
+                <ul id="demo" class="collapse">
+                    <li>
+                        <a href="#">Favourites</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-fw fa-folder-open"></i> Load local note</a>
+            </li>
+
+
+            <li class="fixed-bottom" onclick='showSettingsTab()'>
+                <a href="#tab_settings"><i class="fa fa-fw fa-gear"></i> Settings</a>
+            </li>
+        </ul>
+    </div>
+    <!-- /.navbar-collapse -->

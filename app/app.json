@@ -1,0 +1,27 @@
+{
+    "TITLE": "SILK Desktop",
+    "DEBUG": false,
+    "APPENV":"PROD",
+    "APPKEY":"pixy",
+    "SETTINGS": {
+        "PROD": {
+            "CONFIG": {
+                "NOTIFICATION_INTERVAL": 60000
+            }
+        },
+        "DEV": {
+            "CONFIG": {
+                "NOTIFICATION_INTERVAL": 60000
+            }
+        }
+    },
+    "UICONFIG": {
+        "NOSIDEBAR": ["login", "register", "forgetpwd", "pwdreset"],
+        "NOFOOTER": ["login", "register", "forgetpwd", "pwdreset"]
+    },
+    "POLICIES": {
+        "DEFAULT_STATE": "open",
+        "SECURE_PAGES": [],
+        "NOLOGIN_PAGES": ["login", "register", "forgetpwd", "pwdreset","home"]
+    }
+}
