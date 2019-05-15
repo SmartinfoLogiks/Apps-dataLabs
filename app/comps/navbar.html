@@ -1,33 +1,116 @@
-    <!-- Top Menu Items -->
-    <ul id='noteTabBar' class="nav navbar-left top-nav">
-        <li class='active'><a href="#tab_home"><i class="fa fa-home"></i> Home</a></li>
-        <!-- <li><a href="#"><i class="fa fa-file"></i> Test1</a></li>
-        <li><a href="#"><i class="fa fa-file"></i> Test 2</a></li> -->
+<!-- Top Menu Items -->
+<ul id='noteTabBar' class="nav navbar-left top-nav uploadNav" style="width: 100%;padding-top: 1px;">
+    <li style="width: 225px;padding-top: 4px;padding-left: 13px;color: white;font-weight: bold;"> SILK Vizuals</li>
+   
+    <li class=" pull-left uploadBtnbox"><input type="file" id="fileUpload" />
+        <button class="btn uploadBtn">Upload</button>
+    </li>
+    <li class=" pull-right btn btn-success refresh"><i class="fa fa-refresh"></i></li>
+
+    <li class=" pull-right btn btn-success generateChart"><i class="fa fa-file"></i> Render</li>
+</ul>
+<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+<div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul id='sidebar' class="nav navbar-nav side-nav">
+        <li>
+            <div class="form-group" style="padding-left: 20px; padding-top: 10px;color:white">
+                <label for="email">Chart Type:</label>
+                <select class="form-control" id="chart-type">
+                    <option value="">Select chart type</option>
+                    <option value="pie">Pie Chart</option>
+                    <option value="line">Line Chart</option>
+                    <option value="bar">Bar Chart</option>
+                    <option value="area">Area</option>
+                </select>
+            </div>
+        </li>
+        <li>
+            <div class="form-group" style="padding-left: 20px; padding-top: 10px;color:white">
+                <label for="email">X-Axis:</label>
+                <select class="form-control" name="xaxis" id="xaxis">
+                    <option>Select</option>
+                   
+                </select>
+            </div>
+        </li>
+       <!--  <li>
+            <div class="form-group form-check" style="padding-left: 20px; padding-top: 10px;color:white">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox"> Fill Chart
+                </label>
+
+            </div>
+            <div class="form-group form-check" style="padding-left: 20px; padding-top: 10px;color:white">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox"> Line Dashed
+                </label>
+            </div>
+        </li>
+        <li>
+            <div class="form-group" style="padding-left: 20px; padding-top: 10px;color:white">
+                <label for="email">Fill Color:</label>
+                <input type="email" class="form-control" id="email">
+            </div>
+        </li>
+        <li>
+            <div class="form-group" style="padding-left: 20px; padding-top: 10px;color:white">
+                <label for="email">Line Thickness:</label>
+                <input type="email" class="form-control" id="email">
+            </div>
+        </li>
+        <li class="fixed-bottom" onclick='showSettingsTab()'>
+            <a href="#tab_settings"><i class="fa fa-fw fa-gear"></i> Settings</a>
+        </li> -->
     </ul>
-    
-    <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-    <div class="collapse navbar-collapse navbar-ex1-collapse">
-        <ul id='sidebar' class="nav navbar-nav side-nav">
-            
-            <li class='actionCMD' data-cmd='newDocument'>
-                <a href="#"><i class="fa fa-fw fa-plus"></i> Create New</a>
-            </li>
-            <li>
-                <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-folder"></i> Recent Notes <i class="fa fa-fw fa-caret-down"></i></a>
-                <ul id="demo" class="collapse">
-                    <li>
-                        <a href="#">Favourites</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="#"><i class="fa fa-fw fa-folder-open"></i> Load local note</a>
-            </li>
+</div>
+<script>
+    var chart = null;
+    var chartTitle = "";
+    $(document).ready(function () {
+        
+        $(".refresh").click(function () {
+            location.reload();
+        });
+        $('input[type="file"]').change(function () {
+            if (chart != null) {
+                chart.destroy();
+            }
+            var fileUpload = document.getElementById("fileUpload");
+            showLoader(".loaderGrid");
+            $("#gridView > table > thead").empty();
+            $("#gridView > table > tbody").empty();
+            $('#gridView .errorGrid').removeClass('noData').addClass('noData');;
+            uploadFile(fileUpload);
+            hideLoader(".loaderGrid");
+        });
+        $("#noteTabBar .generateChart").click(function () {
+            if (chart != null) {
+                chart.destroy();
+            }
+            var xaxis = $("#xaxis").val();
+            console.log(xaxis);
+            if (xaxis != "" && xaxis != "undefined") {
+                var charttype = $("#chart-type").val();
+                switch (charttype) {
+                    case "area":
+                        viewAreaChart(xaxis);
+                        break;
+                    case "bar":
+                        viewBarChart(xaxis);
+                        break;
+                    case "pie":
+                        viewPieChart(xaxis);
+                        break;
+                    default: case "line":
+                        viewLineChart(xaxis);
+                }
+                $("#msgHeader").hide();
+            } else {
+              
+                alert("Please select X-Axis from sidebar");
+            }
 
+        });
+    });
 
-            <li class="fixed-bottom" onclick='showSettingsTab()'>
-                <a href="#tab_settings"><i class="fa fa-fw fa-gear"></i> Settings</a>
-            </li>
-        </ul>
-    </div>
-    <!-- /.navbar-collapse -->
+</script>

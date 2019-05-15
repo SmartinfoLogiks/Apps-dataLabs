@@ -19,9 +19,7 @@ const prompt = require('electron-prompt');
 const handleBars = require('handlebars');
 const hashMD5 = require('md5');
 const moment = require("moment");
-// const uuidv4 = require('uuid/v4');
 const shortid = require('shortid');
-// const Vue = require("vue");
 const SimpleMDE = require('simplemde');
 
 //LIBS
@@ -29,7 +27,8 @@ const appUI=require("./app/assets/js/app-ux.js");
 const appAPI=require("./app/assets/js/app-validator.js");
 const appUtils=require("./app/assets/js/app-utils.js");
 const appData=require("./app/assets/js/app-data.js");
-
+var XLSX = require('xlsx');
+var Chart = require('chart.js');
 var isWin = /^win/.test(process.platform);
 
 var APPCONFIG={};
@@ -236,13 +235,6 @@ function initLoggers() {
                 })
             ]
           });
-
-    // console.debug=function(e) {
-    //         logger.debug(e);//4
-    //     }
-    // console.log=function(e) {
-    //         logger.verbose(e);//3
-    //     }
     console.info=function(e) {
             logger.info(e);//2
         }
@@ -255,4 +247,12 @@ function initLoggers() {
     
     console.info("Starting Application On "+moment(new Date()).format("Y-MM-d H:m:s"));
     console.info("Application Path "+fsPath.join(getAppPath(),"usermedia"));
+}
+
+
+function showLoader(divID) {
+    $(divID).html("<div style='text-align:center;width: 100%;margin-top:100px;'><span class='fa fa-spinner fa-2x fa-spin'></span></div>");
+}
+function hideLoader(divID) {
+    $(divID).html("<div style='text-align:center;width: 100%;margin-top:100px;display: none;'><span class='fa fa-spinner fa-2x fa-spin'></span></div>");
 }

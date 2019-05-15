@@ -82,9 +82,9 @@ body {
     margin-top: 9px;
     cursor: pointer;
 }
-.noData{
-    display: none;
-}
+
+
+
 td label, th label {
     display: block;
     width: 100%;
@@ -94,74 +94,11 @@ th label input[type=color] {
     float: right;
 }
 
+.noData{
+    display:none;
+}
 .textAlign {
     text-align: center;
-    font-size: 15px;
+    font-size: 15px;    
     font-weight: bold;
-}
-.uploadBtn,.uploadBtn:hover,.uploadBtn:focus,.uploadBtn:active{
-     margin-top: -35px;
-    background: #f3a915;
-    padding: 6px 20px !important;
-    color: #fff;
-    line-height: 15px;
-    margin-left: 0 !important;
-    cursor: pointer;
-    
-}
-.uploadBtnbox{
-    text-align: left;
-
-}
-.uploadBtnbox input{
-    opacity: 0;
-    cursor: pointer;
-    width: 100px;
-}
-
-.uploadNav .btn {
-padding: 4px 10px;
-margin-left: 5px;
-} 
-.graphBox{
-    height: 100%;
-    display: flex;
-    align-items: center;
-}
-.mainBody{
-     padding-top: 30px;
-    padding-bottom: 30px;
-    border-bottom: 1px solid #ddd;
-   
-    overflow: auto;
-}
-.side-nav li{
-        width: 100%;
-}
-.side-nav li .form-group{
-        padding-left: 10px !important;
-    padding-right: 10px;
-}
-
-
-.tableBox input[type=checkbox] {
-    
-    margin-right: 5px;
-    
-}
-
-.tableBox  th label{
-    display: flex;
-    width: 100%;
-    align-items: center;
-}
-
-.tableBox th label input[type=color] {
-  
-   float:none;
-    margin-left: 5px;
-}
-
-.tableBox .table>thead>tr>th{
-    white-space: nowrap;
 }

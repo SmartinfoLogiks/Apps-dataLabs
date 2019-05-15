@@ -1,26 +1,92 @@
-<div class='mainBody'>
+<div class='mainBody graphTable'   style="height:50%" >
+	<h1 id='msgHeader' align="center">Please import data to render</h1>
+	<button class="btn" style="float:right;display:none;" id="zoomg"><i class="fa fa-expand" aria-hidden="true"></i></button>
+	<button class="btn" style="float:right;display:none;" id="zooming"><i class="fa fa-compress" aria-hidden="true"></i></button>
+	<div class="graphBox">
+		<canvas id='graphChart' height="200px" width="700px"></canvas>
+	</div>
+</div>
+<div class='mainBody tableBox table-responsive' style="height:50%" id="gridView">
+
+	<div class="loaderGrid"></div><button class="btn" style="float:right;display:none;" id="addrow"><i class="fa fa-plus" aria-hidden="true"></i></button>
+	<button class="btn" style="float:right;display:none;" id="zoom"><i class="fa fa-expand" aria-hidden="true"></i></button>
+	<button class="btn" style="float:right;display:none;" id="zoomin"><i class="fa fa-compress" aria-hidden="true"></i></button>
+	<div class="errorGrid textAlign noData">No Data available</div>
+
+	<table class="table t1 table-bordered table-stripped">
+		<thead>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
 </div>
 <script>
-function loadHomeNoteLists() {
-	$("#recentNoteList").html("");
-	$("#localNoteList").html("");
-	$.each(NOTEBOOKS.recent, function(a,b) {
-		$("#recentNoteList").prepend("<a href='#' class='list-group-item actionCMD' data-cmd='openDocumentTab' data-noteid='"+b.noteid+"'>"+b.title+"</a>");
-	});
-	
-	$.each(NOTEBOOKS.local, function(a,b) {
-		$("#localNoteList").append("<a href='#' class='list-group-item actionCMD' data-cmd='openDocumentTab' data-noteid='"+b.noteid+"'>"+b.title+"</a>");
-	});
+$("#zoom").click(function(){
+	$(".tableBox").css({"height": "100%"});
+	$(".graphTable").css({"height": ""});
+	$(".graphTable").hide();
+	$("#zoomin").css({"display": "block"});
+	$("#zoom").css({"display": "none"});
+	$("#sidebar").css({"display": "none"});
+	$("#wrapper").css({"padding-left": "0px"});
+});
 
-	if($("#recentNoteList").children().length<=0) {
-		$("#recentNoteList").html("<h5 class='text-center'>No notes found for you</h5>");
-	}
-	if($("#localNoteList").children().length<=0) {
-		$("#localNoteList").html("<h5 class='text-center'>No notes found for you</h5>");
-	}
+
+$("#zoomin").click(function(){
+	$(".tableBox").css({"height": "50%"});
+	$(".graphTable").css({"height": "50%"});
+	$(".graphTable").show();
+	$("#zoomin").css({"display": "none"});
+	$("#zoom").css({"display": "block"});
+	$("#sidebar").css({"display": "block"});
+	$("#wrapper").css({"padding-left": "225px"});
+});
+
+$("#zoomg").click(function(){
+	$(".graphTable").css({"height": "100%"});
+	$(".tableBox").css({"height": ""});
+	$(".tableBox").hide();
+	$("#zooming").css({"display": "block"});
+	$("#zoomg").css({"display": "none"});
+	$("#sidebar").css({"display": "none"});
+	$("#wrapper").css({"padding-left": "0px"});
+});
+
+
+$("#zooming").click(function(){
+	$(".tableBox").css({"height": "50%"});
+	$(".graphTable").css({"height": "50%"});
+	$(".tableBox").show();
+	$("#zooming").css({"display": "none"});
+	$("#zoomg").css({"display": "block"});
+	$("#sidebar").css({"display": "block"});
+	$("#wrapper").css({"padding-left": "225px"});
+});
+
+$("#addrow").click(function(){
+	var divider = 2;
+	var originalTable = $('table.t1').clone();
+	//var tds = $(originalTable).children('thead').children('tr').children('th').length;
+	var markup = "";
+	markup+="<tr>";
+	/*for(i=0;i<tds;i++){
+	markup +="<td contenteditable='true' class='edittext' ></td>";
+	}*/
+	$("table.t1 thead tr th").each(function(){
+		var text = $(this).text();
+		markup +="<td contenteditable='true' class='"+removeSpecialss(text)+ " edittext' ></td>";
+		
+	});
+	markup+="</tr>";
+	$("table tbody").append(markup);
+});
+
+function removeSpecialss(str) {
+	string = String(str).replace(/[^a-zA-Z0-9]/g, "");
+	return string;
 }
-$("#tab_settings").load("./app/pages/settings.html");
-loadHomeNoteLists();
-// $("#homePage1").load("./app/comps/dash-cards.html");
-// $("#homePage2").load("./app/comps/dash-table.html");
 </script>
+
+
+
+

@@ -91,3 +91,13 @@
 .border_left {
     border-left: 1px solid #AAA;
 }
+
+
+/*Kanchan */
+
+.pageCompContent {
+    height: 100%;
+    overflow: auto;
+    background: #FFF;
+    padding: 0px;
+}

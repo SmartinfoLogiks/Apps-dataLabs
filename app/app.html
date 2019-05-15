@@ -1,3 +1,7 @@
+
+<script src="app/assets/js/import.js"></script>
+<script src="app/assets/js/data.js"></script>
+<script src="app/assets/js/render.js"></script>
 <div id="wrapper">
     <!-- Navigation -->
     <nav id='navbar' class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -33,5 +37,5 @@
 $("#navbar").load("./app/comps/navbar.html");
 $("#mainBody").css("height",($(window).height()-$("#navbar").height()-10)+"px");
 // $("#mainBody").css("min-height",($(window).height()-$("#navbar").height()-10)+"px");
-//appUI.navigatePage(APPCONFIG.HOME,$("#sidebarMenu a[href='"+APPCONFIG.HOME+"']"));
+appUI.navigatePage(APPCONFIG.HOME,$("#sidebarMenu a[href='"+APPCONFIG.HOME+"']"));
 </script>
