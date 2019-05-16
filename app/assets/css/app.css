@@ -149,7 +149,7 @@ margin-left: 5px;
 }
 
 .tableBox  th label{
-    display: flex;
+    display: block;
     width: 100%;
     align-items: center;
 }

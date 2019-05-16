@@ -1,5 +1,7 @@
 var headerTableCell = [];
 function renderData() {
+	chartTitle ="";
+
 	headerTableCell = [];
 	if (dataRender.length > 0) {
 		$.each(dataRender[0], function (i, val) {
@@ -16,8 +18,9 @@ function gridView(headerData, innerData) {
 	$.each(headerData, function (a, b) {
 		if (b != undefined) {
 			xAxisUi += "<option data-value='" + b + "'>" + b + "</option>";
+			colorInput = "<input type='color' class='pull-right clr" + removeSpecials(b) + "'  name='clr" + removeSpecials(b) + "'>";
 			checkbox = "<input type='checkbox' class='cb" + removeSpecials(b) + "' value='" + removeSpecials(b) + "' name='yaxis'>";
-			colorInput = "<input type='color' class='clr" + removeSpecials(b) + "'  name='clr" + removeSpecials(b) + "'>";
+			//colorInput = "<input type='color' class='clr" + removeSpecials(b) + "'  name='clr" + removeSpecials(b) + "'>";
 			htmlHeader += "<th data-value='" + b + "' class='" + removeSpecials(b) + "' ><label>" + checkbox + b + " " + colorInput + "</label></td>";
 		}
 	});

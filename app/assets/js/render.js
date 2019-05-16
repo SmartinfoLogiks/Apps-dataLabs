@@ -1,13 +1,15 @@
 var color = ["#337E87", "#934D53", "#1F77B4", "#FF7F0E", "#2CA02C", "#D62728", "#9467BD", "#8C564B", "#E377C2", "#7F7F7F", "#ED6E76", "#337E87", "#934D53", "#1F77B4", "#FF7F0E", "#2CA02C", "#D62728", "#9467BD", "#8C564B", "#E377C2", "#7F7F7F", "#ED6E76", "#337E87", "#934D53", "#1F77B4", "#FF7F0E", "#2CA02C", "#D62728", "#9467BD", "#8C564B", "#E377C2", "#7F7F7F", "#ED6E76", "#337E87", "#934D53", "#1F77B4", "#FF7F0E", "#2CA02C", "#D62728", "#9467BD", "#8C564B", "#E377C2", "#7F7F7F", "#ED6E76", "#337E87", "#934D53", "#1F77B4", "#FF7F0E", "#2CA02C", "#D62728", "#9467BD", "#8C564B", "#E377C2", "#7F7F7F", "#ED6E76", "#337E87", "#934D53", "#1F77B4", "#FF7F0E", "#2CA02C", "#D62728", "#9467BD", "#8C564B", "#E377C2", "#7F7F7F", "#ED6E76", "#337E87", "#934D53", "#1F77B4", "#FF7F0E", "#2CA02C", "#D62728", "#9467BD", "#8C564B", "#E377C2", "#7F7F7F", "#ED6E76", "#337E87", "#934D53", "#1F77B4", "#FF7F0E", "#2CA02C", "#D62728", "#9467BD", "#8C564B", "#E377C2", "#7F7F7F", "#ED6E76", "#337E87", "#934D53", "#1F77B4", "#FF7F0E", "#2CA02C", "#D62728", "#9467BD", "#8C564B", "#E377C2", "#7F7F7F", "#ED6E76", "#337E87", "#934D53", "#1F77B4", "#FF7F0E", "#2CA02C", "#D62728", "#9467BD", "#8C564B", "#E377C2", "#7F7F7F", "#ED6E76", "#337E87", "#934D53", "#1F77B4", "#FF7F0E", "#2CA02C", "#D62728", "#9467BD", "#8C564B", "#E377C2", "#7F7F7F", "#ED6E76"];
 var backgroundcolor = ["#337E87", "#934D53", "#1F77B4", "#FF7F0E", "#2CA02C", "#D62728", "#9467BD", "#8C564B", "#E377C2", "#7F7F7F", "#ED6E76", "#337E87", "#934D53", "#1F77B4", "#FF7F0E", "#2CA02C", "#D62728", "#9467BD", "#8C564B", "#E377C2", "#7F7F7F", "#ED6E76", "#337E87", "#934D53", "#1F77B4", "#FF7F0E", "#2CA02C", "#D62728", "#9467BD", "#8C564B", "#E377C2", "#7F7F7F", "#ED6E76", "#337E87", "#934D53", "#1F77B4", "#FF7F0E", "#2CA02C", "#D62728", "#9467BD", "#8C564B", "#E377C2", "#7F7F7F", "#ED6E76", "#337E87", "#934D53", "#1F77B4", "#FF7F0E", "#2CA02C", "#D62728", "#9467BD", "#8C564B", "#E377C2", "#7F7F7F", "#ED6E76", "#337E87", "#934D53", "#1F77B4", "#FF7F0E", "#2CA02C", "#D62728", "#9467BD", "#8C564B", "#E377C2", "#7F7F7F", "#ED6E76", "#337E87", "#934D53", "#1F77B4", "#FF7F0E", "#2CA02C", "#D62728", "#9467BD", "#8C564B", "#E377C2", "#7F7F7F", "#ED6E76", "#337E87", "#934D53", "#1F77B4", "#FF7F0E", "#2CA02C", "#D62728", "#9467BD", "#8C564B", "#E377C2", "#7F7F7F", "#ED6E76", "#337E87", "#934D53", "#1F77B4", "#FF7F0E", "#2CA02C", "#D62728", "#9467BD", "#8C564B", "#E377C2", "#7F7F7F", "#ED6E76", "#337E87", "#934D53", "#1F77B4", "#FF7F0E", "#2CA02C", "#D62728", "#9467BD", "#8C564B", "#E377C2", "#7F7F7F", "#ED6E76", "#337E87", "#934D53", "#1F77B4", "#FF7F0E", "#2CA02C", "#D62728", "#9467BD", "#8C564B", "#E377C2", "#7F7F7F", "#ED6E76"];
+
 function viewBarChart(xAxisCol) {
     var chartData = [];
     var yaxis = getYaxis();
-
+    
     if (yaxis) {
         chartData = getDataset(xAxisCol, yaxis);
         if (!chartData) { alert("Please select valid Datasets from Datagrid"); return false; }
-        barChart(chartData);//BAR CHART
+        chartTitle = getChartTitle(xAxisCol,yaxis);
+        barChart(chartData,chartTitle);//BAR CHART
     } else {
         alert("Please select Datasets from Datagrid");
        
@@ -16,12 +18,18 @@ function viewBarChart(xAxisCol) {
 function viewLineChart(xAxisCol) {
     var chartData = [];
     var yaxis = getYaxis();
+
     if (yaxis) {
         chartData = getDataset(xAxisCol, yaxis);
-         
         if (!chartData) { alert("Please select valid Datasets from Datagrid"); return false; }
         var fillVal = false;
-        lineChart(chartData, fillVal);//LINE CHART
+        chartTitle = getChartTitle(xAxisCol,yaxis);
+        if($('#chart_title').val()=="" || $('#chart_title').val()==null){
+            $('#chart_title').val(chartTitle);
+        } else {
+            chartTitle = $('#chart_title').val();
+        }
+        lineChart(chartData, fillVal,chartTitle);//LINE CHART
     } else {
         alert("Please select Datasets from Datagrid");
           
@@ -35,7 +43,13 @@ function viewAreaChart(xAxisCol) {
         chartData = getDataset(xAxisCol, yaxis);
         if (!chartData) { alert("Please select valid Datasets from Datagrid"); return false; }
         var fillVal = true;
-        lineChart(chartData, fillVal);//AREA CHART
+        chartTitle = getChartTitle(xAxisCol,yaxis);
+        if($('#chart_title').val()=="" || $('#chart_title').val()==null){
+            $('#chart_title').val(chartTitle);
+        } else {
+            chartTitle = $('#chart_title').val();
+        }
+        lineChart(chartData, fillVal,chartTitle);//AREA CHART
     } else {
         alert("Please select Datasets from Datagrid");
        
@@ -45,33 +59,40 @@ function viewAreaChart(xAxisCol) {
 function viewPieChart(xAxisCol) {
     var chartData = [];
     var yaxis = getYaxis();
+
     if (yaxis) {
         chartData = getDataset(xAxisCol, yaxis);
         if (!chartData) { alert("Please select valid Datasets from Datagrid"); return false; }
-        pieChart(chartData);//PIE CHART
+        chartTitle = getChartTitle(xAxisCol,yaxis);
+        if($('#chart_title').val()=="" || $('#chart_title').val()==null){
+            $('#chart_title').val(chartTitle);
+        } else {
+            chartTitle = $('#chart_title').val();
+        }
+        pieChart(chartData,chartTitle);//PIE CHART
     } else {
         alert("Please select Datasets from Datagrid");
        
     }
 }
 function getYaxis() {
-    yaxis = [];
+    yaxisArr = [];
     $(':checkbox:checked', "#gridView > table").each(function () {
-        yaxis.push($(this).val());
+        yaxisArr.push($(this).val());
     });
-    if (yaxis.length > 0) {
-        return yaxis;
+    if (yaxisArr.length > 0) {
+        return yaxisArr;
     }
     return false;
 }
 function getDataset(xAxisCol, yAxisColAry) {
-     chartTitle = getChartTitle(xAxisCol,yAxisColAry);
-     labelTitle = getLabelTitle(yAxisColAry);
-     if($('#chart_title').val()=="" || $('#chart_title').val()==null){
-        $('#chart_title').val(chartTitle);
+     
+     if($('#y_axisinput').val() == null || $('#y_axisinput').val() == ""){
+        y_axisLabel = getLabelTitle(yAxisColAry);
      } else {
-        chartTitle = $('#chart_title').val();
-     }
+        y_axisLabel = $('#y_axisinput').val();
+     } 
+     
     var dataset = [];
     dataset['labels'] = [];
     dataset['datasets'] = [];
@@ -85,7 +106,6 @@ function getDataset(xAxisCol, yAxisColAry) {
                 // yaxisVal = $(tr_this).find('td.' + value).attr("data-value");
                 yaxisVal = $(tr_this).find('td.' + value).html();
                 if (yaxisVal != undefined && yaxisVal != null) {
-                    // console.log(yaxisVal);
                     groupdata[xAxisLabel] = groupdata[xAxisLabel] || [];
                     groupdata[xAxisLabel][value] = groupdata[xAxisLabel][value] || [];
                     groupdata[xAxisLabel][value].push(yaxisVal);
@@ -119,6 +139,7 @@ function getDataset(xAxisCol, yAxisColAry) {
     else return false;
 }
 function designDatasets(datas, fillStatus) {
+    line_thick = $('#line_thickinput').val();
     var datasetValue = [];
     var j = 0;
     for (var key in datas) {
@@ -130,7 +151,7 @@ function designDatasets(datas, fillStatus) {
                 borderColor: clrval,
                 data: datas[key]['data'],
                 fill: fillStatus,
-                borderWidth: 0.5
+                borderWidth: line_thick
             }
             j++;
         }
@@ -152,8 +173,13 @@ function designDatasetsPie(datas) {
     }
     return datasetValue;
 }
-function barChart(datasetsData) {
-    var xaxis = $("#xaxis").val();
+function barChart(datasetsData,chartTitle) {
+    //var xaxis = $("#xaxis").val();
+    if($("#x_axisinput").val() == null || $("#x_axisinput").val() ==""){
+        x_axisLabel = $("#xaxis").val();
+    }  else {
+        x_axisLabel = $("#x_axisinput").val();
+    }
     var fillVal = true;
     var dataSets = designDatasets(datasetsData['datasets'], true);
    
@@ -191,13 +217,13 @@ function barChart(datasetsData) {
                     },
                     scaleLabel: {
                         display: true,
-                        labelString: xaxis
+                        labelString: x_axisLabel
                     }
                 }],
                 yAxes: [{
                     scaleLabel: {
                         display: true,
-                        labelString: labelTitle
+                        labelString: y_axisLabel
                     }
                 }]
             }
@@ -206,8 +232,13 @@ function barChart(datasetsData) {
     chart = new Chart(popCanvas, config);
     $("#zoomg").css({"display": "block"});
 }
-function lineChart(datasetsData, fillVal) {
-     var xaxis = $("#xaxis").val();
+function lineChart(datasetsData, fillVal,chartTitle) {
+     //var xaxis = $("#xaxis").val();
+    if($("#x_axisinput").val() == null || $("#x_axisinput").val() ==""){
+        x_axisLabel = $("#xaxis").val();
+    }  else {
+        x_axisLabel = $("#x_axisinput").val();
+    }
     var dataSets = designDatasets(datasetsData['datasets'], fillVal);
     if (chart != null) {
         chart.destroy();
@@ -250,13 +281,13 @@ function lineChart(datasetsData, fillVal) {
                     },
                     scaleLabel: {
                         display: true,
-                        labelString: xaxis
+                        labelString: x_axisLabel
                     }
                 }],
                 yAxes: [{
                     scaleLabel: {
                         display: true,
-                        labelString: labelTitle
+                        labelString: y_axisLabel
                     }
                 }]
             },
@@ -267,7 +298,7 @@ function lineChart(datasetsData, fillVal) {
     $("#zoomg").css({"display": "block"});
 }
 
-function pieChart(datasetsData) {
+function pieChart(datasetsData,chartTitle) {
     var dataSets = designDatasetsPie(datasetsData['datasets']);
     if (chart != null) {
         chart.destroy();
@@ -313,6 +344,7 @@ function pieChart(datasetsData) {
 }
 
 function getChartTitle(x,y){
+    
     yxx = "";
     $.each( y, function( key, value ) {
       $("table.t1 thead tr th").each(function(){
@@ -331,11 +363,11 @@ function getLabelTitle(y){
     $.each( y, function( key, value ) {
       $("table.t1 thead tr th").each(function(){
         yx =  $("table.t1 thead tr th."+value).attr('data-value');
-      
     });
         yxx += " "+yx + " and";
     });
     var lastIndex = yxx.lastIndexOf(" ");
     yxx = yxx.substring(0, lastIndex);
+     
     return yxx;
 }

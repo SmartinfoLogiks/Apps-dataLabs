@@ -31,6 +31,8 @@ function uploadFile(fileUpload) {
         alert("Please upload a valid Excel file.");
         $('#fileUpload').val("");
         $('#chart_title').val("");
+        $('#x_axisinput').val("");
+        $('#y_axisinput').val("");
     }   
 };
 function processExcel(data) {
@@ -42,16 +44,19 @@ function processExcel(data) {
     var firstSheet = workbook.SheetNames[0];
     //Read all rows from First Sheet into an JSON array.
      //var sCSV = XLSX.utils.make_csv(workbook.Sheets[firstSheet]);
-     //alert(sCSV);
     var excelRows = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[firstSheet]);
     
     if (excelRows.length > 0) {
         dataRender = excelRows;
          $('#chart_title').val("");
+         $('#x_axisinput').val("");
+         $('#y_axisinput').val("");
         renderData();
     } else {
         $('#gridView .errorGrid').removeClass('noData');
         $('#fileUpload').val("");  
-        $('#chart_title').val("");    
+        $('#chart_title').val(""); 
+        $('#x_axisinput').val("");   
+        $('#y_axisinput').val("");
     }
 };
