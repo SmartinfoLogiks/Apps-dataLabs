@@ -1,4 +1,6 @@
 var headerTableCell = [];
+var COLORS = ['#4dc9f6','#f67019','#f53794','#537bc4','#acc236','#166a8f','#00a950','#58595b','#8549ba'];
+     
 function renderData() {
 	chartTitle ="";
 
@@ -17,8 +19,9 @@ function gridView(headerData, innerData) {
 	htmlHeader = "<tr>";
 	$.each(headerData, function (a, b) {
 		if (b != undefined) {
+
 			xAxisUi += "<option data-value='" + b + "'>" + b + "</option>";
-			colorInput = "<input type='color' class='pull-right clr" + removeSpecials(b) + "'  name='clr" + removeSpecials(b) + "'>";
+			colorInput = "<input type='color' class='pull-right clr" + removeSpecials(b) + "'  name='clr" + removeSpecials(b) + "' id='colorval' value='"+COLORS[a]+"'>";
 			checkbox = "<input type='checkbox' class='cb" + removeSpecials(b) + "' value='" + removeSpecials(b) + "' name='yaxis'>";
 			//colorInput = "<input type='color' class='clr" + removeSpecials(b) + "'  name='clr" + removeSpecials(b) + "'>";
 			htmlHeader += "<th data-value='" + b + "' class='" + removeSpecials(b) + "' ><label>" + checkbox + b + " " + colorInput + "</label></td>";
