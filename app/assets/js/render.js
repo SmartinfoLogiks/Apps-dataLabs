@@ -10,6 +10,7 @@ function viewBarChart(xAxisCol) {
         barChart(chartData);//BAR CHART
     } else {
         alert("Please select Datasets from Datagrid");
+       
     }
 }
 function viewLineChart(xAxisCol) {
@@ -17,13 +18,13 @@ function viewLineChart(xAxisCol) {
     var yaxis = getYaxis();
     if (yaxis) {
         chartData = getDataset(xAxisCol, yaxis);
-         console.log(yaxis);
-        console.log(chartData);
+         
         if (!chartData) { alert("Please select valid Datasets from Datagrid"); return false; }
         var fillVal = false;
         lineChart(chartData, fillVal);//LINE CHART
     } else {
         alert("Please select Datasets from Datagrid");
+          
     }
 
 }
@@ -37,6 +38,7 @@ function viewAreaChart(xAxisCol) {
         lineChart(chartData, fillVal);//AREA CHART
     } else {
         alert("Please select Datasets from Datagrid");
+       
     }
 
 }
@@ -49,6 +51,7 @@ function viewPieChart(xAxisCol) {
         pieChart(chartData);//PIE CHART
     } else {
         alert("Please select Datasets from Datagrid");
+       
     }
 }
 function getYaxis() {
@@ -62,6 +65,13 @@ function getYaxis() {
     return false;
 }
 function getDataset(xAxisCol, yAxisColAry) {
+     chartTitle = getChartTitle(xAxisCol,yAxisColAry);
+     labelTitle = getLabelTitle(yAxisColAry);
+     if($('#chart_title').val()=="" || $('#chart_title').val()==null){
+        $('#chart_title').val(chartTitle);
+     } else {
+        chartTitle = $('#chart_title').val();
+     }
     var dataset = [];
     dataset['labels'] = [];
     dataset['datasets'] = [];
@@ -120,6 +130,7 @@ function designDatasets(datas, fillStatus) {
                 borderColor: clrval,
                 data: datas[key]['data'],
                 fill: fillStatus,
+                borderWidth: 0.5
             }
             j++;
         }
@@ -142,6 +153,7 @@ function designDatasetsPie(datas) {
     return datasetValue;
 }
 function barChart(datasetsData) {
+    var xaxis = $("#xaxis").val();
     var fillVal = true;
     var dataSets = designDatasets(datasetsData['datasets'], true);
    
@@ -173,10 +185,19 @@ function barChart(datasetsData) {
             },
             scales: {
                 xAxes: [{
-
                     ticks: {
                         stepSize: 1,
                         autoSkip: false
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: xaxis
+                    }
+                }],
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: labelTitle
                     }
                 }]
             }
@@ -186,6 +207,7 @@ function barChart(datasetsData) {
     $("#zoomg").css({"display": "block"});
 }
 function lineChart(datasetsData, fillVal) {
+     var xaxis = $("#xaxis").val();
     var dataSets = designDatasets(datasetsData['datasets'], fillVal);
     if (chart != null) {
         chart.destroy();
@@ -197,11 +219,13 @@ function lineChart(datasetsData, fillVal) {
         {
             labels: datasetsData['labels'],
             datasets: dataSets
+           
         },
         options: {
             scaleShowLabels: false,
             responsive: true,
             maintainAspectRatio: false,
+
             legend: {
                 display: true,
                 position: "bottom"
@@ -223,9 +247,20 @@ function lineChart(datasetsData, fillVal) {
                     ticks: {
                         stepSize: 1,
                         autoSkip: false
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: xaxis
+                    }
+                }],
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: labelTitle
                     }
                 }]
-            }
+            },
+             //borderWidth: 0.5
         }
     }
     chart = new Chart(popCanvas, config);
@@ -250,10 +285,10 @@ function pieChart(datasetsData) {
                 display: true,
                 position: 'right',
             },
-            // title:{
-            //     display:true,
-            //     text:""
-            // },
+            title: {
+                display: true,
+                text: chartTitle,
+            },
             animation: {
                 animateScale: true,
                 animateRotate: true
@@ -275,4 +310,32 @@ function pieChart(datasetsData) {
     var popCanvas = $("#graphChart");
     chart = new Chart(popCanvas, config);
     $("#zoomg").css({"display": "block"});
+}
+
+function getChartTitle(x,y){
+    yxx = "";
+    $.each( y, function( key, value ) {
+      $("table.t1 thead tr th").each(function(){
+        yx =  $("table.t1 thead tr th."+value).attr('data-value');
+      
+    });
+        yxx += " "+yx + " and";
+    });
+    var lastIndex = yxx.lastIndexOf(" ");
+    yxx = yxx.substring(0, lastIndex);
+    return x + " versus " + yxx;
+}
+
+function getLabelTitle(y){
+    yxx = "";
+    $.each( y, function( key, value ) {
+      $("table.t1 thead tr th").each(function(){
+        yx =  $("table.t1 thead tr th."+value).attr('data-value');
+      
+    });
+        yxx += " "+yx + " and";
+    });
+    var lastIndex = yxx.lastIndexOf(" ");
+    yxx = yxx.substring(0, lastIndex);
+    return yxx;
 }

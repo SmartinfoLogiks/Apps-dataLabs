@@ -44,7 +44,7 @@ function createWindow() {
     }
 
     mainWindow.setMenu(null);
-    mainWindow.openDevTools();
+    //mainWindow.openDevTools();
 
     // mainWindow.loadURL(`file://${__dirname}/index.html`)
     mainWindow.loadURL(url.format({

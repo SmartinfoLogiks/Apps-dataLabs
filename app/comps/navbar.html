@@ -16,11 +16,11 @@
             <div class="form-group" style="padding-left: 20px; padding-top: 10px;color:white">
                 <label for="email">Chart Type:</label>
                 <select class="form-control" id="chart-type">
-                    <option value="">Select chart type</option>
+                   <!--  <option value="">Select chart type</option> -->
+                   <option value="line">Line Chart</option>
                     <option value="pie">Pie Chart</option>
-                    <option value="line">Line Chart</option>
                     <option value="bar">Bar Chart</option>
-                    <option value="area">Area</option>
+                    <option value="area">Area Chart</option>
                 </select>
             </div>
         </li>
@@ -31,6 +31,12 @@
                     <option>Select</option>
                    
                 </select>
+            </div>
+        </li>
+          <li>
+            <div class="form-group" style="padding-left: 20px; padding-top: 10px;color:white">
+                <label for="email">Legend</label>
+                <input type="text" class="form-control" id="chart_title">
             </div>
         </li>
        <!--  <li>
@@ -46,12 +52,7 @@
                 </label>
             </div>
         </li>
-        <li>
-            <div class="form-group" style="padding-left: 20px; padding-top: 10px;color:white">
-                <label for="email">Fill Color:</label>
-                <input type="email" class="form-control" id="email">
-            </div>
-        </li>
+      
         <li>
             <div class="form-group" style="padding-left: 20px; padding-top: 10px;color:white">
                 <label for="email">Line Thickness:</label>
@@ -66,6 +67,7 @@
 <script>
     var chart = null;
     var chartTitle = "";
+    var labelTitle = "";
     $(document).ready(function () {
         
         $(".refresh").click(function () {
@@ -88,7 +90,7 @@
                 chart.destroy();
             }
             var xaxis = $("#xaxis").val();
-            console.log(xaxis);
+            
             if (xaxis != "" && xaxis != "undefined") {
                 var charttype = $("#chart-type").val();
                 switch (charttype) {
