@@ -29,6 +29,7 @@ const appUtils=require("./app/assets/js/app-utils.js");
 const appData=require("./app/assets/js/app-data.js");
 var XLSX = require('xlsx');
 var Chart = require('chart.js');
+var md5 = require('md5');
 var isWin = /^win/.test(process.platform);
 
 var APPCONFIG={};

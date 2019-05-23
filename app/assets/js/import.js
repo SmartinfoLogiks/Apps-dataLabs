@@ -44,8 +44,13 @@ function processExcel(data) {
     var firstSheet = workbook.SheetNames[0];
     //Read all rows from First Sheet into an JSON array.
      //var sCSV = XLSX.utils.make_csv(workbook.Sheets[firstSheet]);
-    var excelRows = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[firstSheet]);
-    
+     //var excelRows = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[firstSheet]);
+
+     let excelRows = XLSX.utils.sheet_to_json(workbook.Sheets[firstSheet], {
+          header: 1,
+          defval: '',
+          blankrows: false
+     });
     if (excelRows.length > 0) {
         dataRender = excelRows;
          $('#chart_title').val("");

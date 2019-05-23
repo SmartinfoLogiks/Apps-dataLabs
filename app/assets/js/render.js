@@ -6,9 +6,15 @@ function viewBarChart(xAxisCol) {
     var yaxis = getYaxis();
     
     if (yaxis) {
+        chartTitle ="";
         chartData = getDataset(xAxisCol, yaxis);
         if (!chartData) { alert("Please select valid Datasets from Datagrid"); return false; }
         chartTitle = getChartTitle(xAxisCol,yaxis);
+        if($('#chart_title').val()=="" || $('#chart_title').val()==null){
+            $('#chart_title').val(chartTitle);
+        } else {
+            chartTitle = $('#chart_title').val();
+        }
         barChart(chartData,chartTitle);//BAR CHART
     } else {
         alert("Please select Datasets from Datagrid");
@@ -18,8 +24,9 @@ function viewBarChart(xAxisCol) {
 function viewLineChart(xAxisCol) {
     var chartData = [];
     var yaxis = getYaxis();
-
+    
     if (yaxis) {
+        chartTitle ="";
         chartData = getDataset(xAxisCol, yaxis);
         if (!chartData) { alert("Please select valid Datasets from Datagrid"); return false; }
         var fillVal = false;
@@ -40,6 +47,7 @@ function viewAreaChart(xAxisCol) {
     var chartData = [];
     var yaxis = getYaxis();
     if (yaxis) {
+        chartTitle ="";
         chartData = getDataset(xAxisCol, yaxis);
         if (!chartData) { alert("Please select valid Datasets from Datagrid"); return false; }
         var fillVal = true;
@@ -99,20 +107,25 @@ function getDataset(xAxisCol, yAxisColAry) {
     var groupdata = [];
     $("#gridView > table > tbody").find('tr').each(function (column, td) {
         tr_this = this;
-        //xAxisLabel = $(tr_this).find('td.' + xAxisCol).attr("data-value");
+        // xAxisLabel = $(tr_this).find('td.' + xAxisCol).attr("data-value");
          xAxisLabel = $(tr_this).find('td.' + xAxisCol).html();
+        
         if (xAxisLabel != undefined && xAxisLabel != null) {
             $.each(yAxisColAry, function (index, value) {             
                 // yaxisVal = $(tr_this).find('td.' + value).attr("data-value");
+
+                yaxisName = $("#gridView > table > thead").find('th.' + value).attr("data-ref");
+
                 yaxisVal = $(tr_this).find('td.' + value).html();
                 if (yaxisVal != undefined && yaxisVal != null) {
                     groupdata[xAxisLabel] = groupdata[xAxisLabel] || [];
-                    groupdata[xAxisLabel][value] = groupdata[xAxisLabel][value] || [];
-                    groupdata[xAxisLabel][value].push(yaxisVal);
+                    groupdata[xAxisLabel][yaxisName] = groupdata[xAxisLabel][yaxisName] || [];
+                    groupdata[xAxisLabel][yaxisName].push(yaxisVal);
                 }
             });
         }
     });
+    
     for (var key in groupdata) {
         if (groupdata.hasOwnProperty(key)) {
             dataset['labels'].push(key);
@@ -135,6 +148,7 @@ function getDataset(xAxisCol, yAxisColAry) {
             }
         }
     }
+    
     if (dataset['labels'].length > 0) return dataset;
     else return false;
 }
@@ -144,7 +158,7 @@ function designDatasets(datas, fillStatus) {
     var j = 0;
     for (var key in datas) {
         if (datas.hasOwnProperty(key)) {
-            clrval = $("#gridView > table > thead").find('th .clr' + key).val();
+            clrval = $("#gridView > table > thead").find('th .clr' + md5(key)).val();
             datasetValue[j] = {
                 label: key,
                 backgroundColor: clrval,
@@ -176,7 +190,7 @@ function designDatasetsPie(datas) {
 function barChart(datasetsData,chartTitle) {
     //var xaxis = $("#xaxis").val();
     if($("#x_axisinput").val() == null || $("#x_axisinput").val() ==""){
-        x_axisLabel = $("#xaxis").val();
+        x_axisLabel = $('#xaxis option:selected').attr('data-ref');
     }  else {
         x_axisLabel = $("#x_axisinput").val();
     }
@@ -227,6 +241,7 @@ function barChart(datasetsData,chartTitle) {
                     }
                 }]
             }
+            
         }
     }
     chart = new Chart(popCanvas, config);
@@ -235,7 +250,7 @@ function barChart(datasetsData,chartTitle) {
 function lineChart(datasetsData, fillVal,chartTitle) {
      //var xaxis = $("#xaxis").val();
     if($("#x_axisinput").val() == null || $("#x_axisinput").val() ==""){
-        x_axisLabel = $("#xaxis").val();
+        x_axisLabel = $('#xaxis option:selected').attr('data-ref');
     }  else {
         x_axisLabel = $("#x_axisinput").val();
     }
@@ -274,23 +289,23 @@ function lineChart(datasetsData, fillVal,chartTitle) {
                 intersect: true
             },
             scales: {
-                xAxes: [{
-                    ticks: {
-                        stepSize: 1,
-                        autoSkip: false
-                    },
-                    scaleLabel: {
-                        display: true,
-                        labelString: x_axisLabel
-                    }
-                }],
-                yAxes: [{
-                    scaleLabel: {
-                        display: true,
-                        labelString: y_axisLabel
-                    }
-                }]
-            },
+            xAxes: [{
+                ticks: {
+                    stepSize: 1,
+                    autoSkip: false
+                },
+                scaleLabel: {
+                    display: true,
+                    labelString: x_axisLabel
+                }
+            }],
+            yAxes: [{
+                scaleLabel: {
+                    display: true,
+                    labelString: y_axisLabel
+                }
+            }]
+            }
              //borderWidth: 0.5
         }
     }
@@ -327,10 +342,7 @@ function pieChart(datasetsData,chartTitle) {
             tooltips: {
                 mode: 'label',
                 callbacks: {
-                    // label: function (tooltipItem, data) {
-                    //     var indice = tooltipItem.index;
-                    //     return data.labels[indice] + ': ' + data.datasets[0].data[indice] + "% Devices";
-                    // }
+                   
                     label: function (item, data) {
                         return data.datasets[item.datasetIndex].label + ": " + data.labels[item.index] + ": " + data.datasets[item.datasetIndex].data[item.index];
                     }
@@ -344,25 +356,25 @@ function pieChart(datasetsData,chartTitle) {
 }
 
 function getChartTitle(x,y){
-    
+    var xval = $('#xaxis option:selected').attr('data-ref');
     yxx = "";
     $.each( y, function( key, value ) {
       $("table.t1 thead tr th").each(function(){
-        yx =  $("table.t1 thead tr th."+value).attr('data-value');
+        yx =  $("table.t1 thead tr th."+value).attr('data-ref');
       
     });
         yxx += " "+yx + " and";
     });
     var lastIndex = yxx.lastIndexOf(" ");
     yxx = yxx.substring(0, lastIndex);
-    return x + " versus " + yxx;
+    return xval + " versus " + yxx;
 }
 
 function getLabelTitle(y){
     yxx = "";
     $.each( y, function( key, value ) {
       $("table.t1 thead tr th").each(function(){
-        yx =  $("table.t1 thead tr th."+value).attr('data-value');
+        yx =  $("table.t1 thead tr th."+value).attr('data-ref');
     });
         yxx += " "+yx + " and";
     });

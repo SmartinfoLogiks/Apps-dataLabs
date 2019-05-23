@@ -66,15 +66,11 @@ $("#zooming").click(function(){
 $("#addrow").click(function(){
 	var divider = 2;
 	var originalTable = $('table.t1').clone();
-	//var tds = $(originalTable).children('thead').children('tr').children('th').length;
 	var markup = "";
 	markup+="<tr>";
-	/*for(i=0;i<tds;i++){
-	markup +="<td contenteditable='true' class='edittext' ></td>";
-	}*/
 	$("table.t1 thead tr th").each(function(){
-		var text = $(this).text();
-		markup +="<td contenteditable='true' class='"+removeSpecialss(text)+ " edittext' ></td>";
+		var text = $(this).data("value");
+		markup +="<td contenteditable='true' class='"+removeSpecialss(text)+ "  edittext' ></td>";
 		
 	});
 	markup+="</tr>";
