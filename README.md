@@ -16,6 +16,7 @@ The SILK DataLabs allows you to import data from various data sources, then proc
 + Ability to save the workspace
 + Larger Data Set Processing
 + Ability to distribute the data processing to remote servers
++ Data Modeling using advanced AI and ML algorithms
 
 
 ** A must tool for all Data Scientists and Data Workers **
