@@ -45,7 +45,7 @@
     "xlsx": "^0.14.3"
   },
   "devDependencies": {
-    "electron": "1.6.2",
+    "electron": "13.6.6",
     "electron-builder": "^10.17.3",
     "electron-packager": "^9.1.0"
   },
